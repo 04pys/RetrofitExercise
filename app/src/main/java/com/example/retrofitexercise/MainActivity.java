@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,21 +27,22 @@ public class MainActivity extends AppCompatActivity {
         getData();
 
     }
-    private void getData(){
+
+    private void getData() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(100, TimeUnit.SECONDS).build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://conduit.productionready.io/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create()).client(client)
                 .build();
 
         RealworldService article = retrofit.create(RealworldService.class);
 
-        Call<RealworldData> call = article.getArticle();
+        Call<RealworldData> articleCall = article.getArticle();
 
-        call.enqueue(new Callback<RealworldData>() {
+        articleCall.enqueue(new Callback<RealworldData>() {
             @Override
             public void onResponse(Call<RealworldData> call, Response<RealworldData> response) {
                 RealworldData data = response.body();
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RealworldData> call, Throwable t) {
-
+                Toast.makeText(MainActivity.this, "불러오기 실패!", Toast.LENGTH_LONG).show();
             }
         });
     }

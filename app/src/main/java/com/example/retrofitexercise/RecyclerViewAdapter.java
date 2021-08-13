@@ -36,11 +36,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         RealworldArticle realworldArticle = list.get(position);
+
         Glide
                 .with(context)
-                .load(realworldArticle.rearworldAuthor.image)
+                .load(realworldArticle.realworldAuthor.image)
                 .into(holder.profileImg);
-        holder.nameText.setText(realworldArticle.rearworldAuthor.username);
+        holder.nameText.setText(realworldArticle.realworldAuthor.username);
         holder.titleText.setText(realworldArticle.title);
         holder.contentsText.setText(realworldArticle.body);
         holder.likeText.setText(""+realworldArticle.favoritesCount);

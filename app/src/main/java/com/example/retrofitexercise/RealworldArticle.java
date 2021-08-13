@@ -10,7 +10,7 @@ public class RealworldArticle {
     public String updatedAt;
     public List<String> tagList = null;
     public String description;
-    public RealworldAuthor rearworldAuthor;
+    public RealworldAuthor realworldAuthor;
     public Boolean favorited;
     public Integer favoritesCount;
 }
